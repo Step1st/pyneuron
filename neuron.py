@@ -43,7 +43,7 @@ def sigmoid(x):
 def binary_step(x):
     return 1 if x >= 0 else 0
 
-def round_output(neuron_output, threshold = 0.5):
+def round_output(neuron_output, threshold):
     if neuron_output >= threshold:
         return 1
     elif neuron_output < 1-threshold:
@@ -51,6 +51,6 @@ def round_output(neuron_output, threshold = 0.5):
     else:
         return None
 
-def round_outputs(neuron_output, threshold = 0.5):
-    return list(map(round_output, neuron_output, threshold))
+def round_outputs(neuron_output, threshold):
+    return list(map(round_output, neuron_output, [threshold] * len(neuron_output)))
 

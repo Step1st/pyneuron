@@ -1,5 +1,6 @@
 import pandas as pd
 from neuron import *
+from init_args import args
 
 # Load data from csv
 data = pd.read_csv("demo_data.csv")
@@ -8,12 +9,12 @@ data = data.drop("t", axis=1)
 data = data.values.tolist()
 weight_count = len(data[0])
 
-neuron_count = int(input("Enter the number of neurons to generate: "))
+neuron_count = args.neuron_count
+activation_function = sigmoid if args.activation_function == 'sigmoid' else binary_step
+threshold = args.threshold
+weight_generator = RandomWeightGenerator(args.range[0], args.range[1], args.precision)
 
-random_weight_generator = RandomWeightGenerator(-12, 12, 5)
-
-neuron = Neuron(weight_count, sigmoid, random_weight_generator)
-
+neuron = Neuron(weight_count, activation_function, weight_generator)
 total_neuron_count = 0
 
 for i in range(neuron_count):
@@ -22,7 +23,7 @@ for i in range(neuron_count):
 
         neuron.randomize()
         raw_outputs = [neuron.activate(obj) for obj in data]
-        processed_outputs = round_outputs(raw_outputs, threshold=0.95) 
+        processed_outputs = round_outputs(raw_outputs, threshold) 
 
         if processed_outputs == labels:
             print(f"{i+1}. {neuron}")
