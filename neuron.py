@@ -20,8 +20,9 @@ class Neuron:
         self.bias = 0
         self.activation_function = activation_function
         self.weight_generator = weight_generator
+        self.generate_weights()
 
-    def randomize(self):
+    def generate_weights(self):
         for i in range(len(self.weights)):
             self.weights[i] = self.weight_generator()
         self.bias = self.weight_generator()

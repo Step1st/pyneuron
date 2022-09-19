@@ -21,7 +21,7 @@ for i in range(neuron_count):
     while True:
         total_neuron_count += 1
 
-        neuron.randomize()
+        neuron.generate_weights()
         raw_outputs = [neuron.activate(obj) for obj in data]
         processed_outputs = round_outputs(raw_outputs, threshold) 
 
